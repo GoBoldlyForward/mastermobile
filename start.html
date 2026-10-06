@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Get early access | MasterMobile</title>
+  <meta name="description" content="Build your MasterMobile booking site in about 2 minutes. Founding price $450, save $200 before launch.">
+  <meta name="robots" content="noindex">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/4f72c85564.js" crossorigin="anonymous"></script>
+  <link href="assets/site.css" rel="stylesheet">
+  <script src="assets/attribution.js"></script>
+</head>
+<body class="ob-body">
+
+<div class="ob-top">
+  <div class="ob-top-inner">
+    <a class="brand" href="index.html" style="font-size:1.0625rem"><span class="brand-mark"><i class="fa-solid fa-sparkles"></i></span><span>master<b>mobile</b></span></a>
+    <span class="small muted" id="stepLabel"></span>
+  </div>
+  <div class="ob-progress"><div id="progressBar"></div></div>
+</div>
+
+<!-- Every step is a <section data-step>. start.js decides which path (website yes/no) and which step shows. -->
+<form id="onboarding" class="ob-wrap" novalidate>
+  <input type="text" name="_gotcha" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+  <!-- FORK -->
+  <section class="ob-step" data-step="fork">
+    <h1>Let's build your booking site.</h1>
+    <p class="ob-help">First, do you have a website today?</p>
+    <div class="choice-grid">
+      <button type="button" class="choice choice-auto" data-field="has_website" data-value="yes"><i class="fa-light fa-globe lead-ic"></i><span>Yes, I have a website<small>We'll pull your info so you don't have to retype it</small></span></button>
+      <button type="button" class="choice choice-auto" data-field="has_website" data-value="no"><i class="fa-light fa-rocket-launch lead-ic"></i><span>No, not yet<small>We'll build it from scratch with you</small></span></button>
+    </div>
+  </section>
+
+  <!-- NO WEBSITE PATH ------------------------------------------------------ -->
+  <section class="ob-step" data-step="locations">
+    <h1>Where will you serve customers?</h1>
+    <p class="ob-help">Pick your state, then add each city. We'll build a page for every one.</p>
+    <div class="field">
+      <label for="stateSelect">State</label>
+      <select id="stateSelect" class="form-select">
+        <option value="">Choose a state</option>
+      </select>
+    </div>
+    <!-- City input only appears after a state is chosen, so the first decision stays simple. -->
+    <div id="cityWrap" class="field d-none">
+      <label for="cityInput">City</label>
+      <div class="d-flex gap-2">
+        <input id="cityInput" class="form-control" placeholder="e.g. Tampa" autocomplete="address-level2">
+        <button type="button" id="addCity" class="btn btn-ghost">Add</button>
+      </div>
+    </div>
+    <div class="chips" id="cityChips"></div>
+  </section>
+
+  <section class="ob-step" data-step="launch">
+    <h1>When do you plan on launching?</h1>
+    <p class="ob-help">We'll have your site ready before then.</p>
+    <div class="choice-grid">
+      <button type="button" class="choice choice-auto" data-field="launch_timing" data-value="Already taking jobs"><i class="fa-light fa-bolt lead-ic"></i><span>I'm already taking jobs<small>Just no website yet</small></span></button>
+      <button type="button" class="choice choice-auto" data-field="launch_timing" data-value="Within 30 days"><i class="fa-light fa-calendar-day lead-ic"></i><span>Within 30 days</span></button>
+      <button type="button" class="choice choice-auto" data-field="launch_timing" data-value="1 to 3 months"><i class="fa-light fa-calendar-week lead-ic"></i><span>In 1 to 3 months</span></button>
+      <button type="button" class="choice choice-auto" data-field="launch_timing" data-value="3+ months"><i class="fa-light fa-calendar lead-ic"></i><span>3 months or more</span></button>
+    </div>
+  </section>
+
+  <section class="ob-step" data-step="services">
+    <h1>Which services will you offer?</h1>
+    <p class="ob-help">Pick all that apply. You can change these anytime.</p>
+    <div class="chips" id="serviceChips"></div>
+  </section>
+
+  <section class="ob-step" data-step="vans">
+    <h1>How many vans or trucks will you start with?</h1>
+    <p class="ob-help">This helps us size your schedule and service area.</p>
+    <div class="choice-grid two">
+      <button type="button" class="choice choice-auto choice-tall" data-field="vans" data-value="0"><i class="fa-light fa-pen-ruler lead-ic"></i><span>None yet<small>Still planning</small></span></button>
+      <button type="button" class="choice choice-auto choice-tall" data-field="vans" data-value="1"><i class="fa-light fa-van-shuttle lead-ic"></i><span>1</span></button>
+      <button type="button" class="choice choice-auto choice-tall" data-field="vans" data-value="2-3"><i class="fa-light fa-cars lead-ic"></i><span>2 to 3</span></button>
+      <button type="button" class="choice choice-auto choice-tall" data-field="vans" data-value="4+"><i class="fa-light fa-truck-fast lead-ic"></i><span>4 or more</span></button>
+    </div>
+  </section>
+
+  <section class="ob-step" data-step="goal">
+    <h1>What matters most to you first?</h1>
+    <p class="ob-help">We'll set up your site to focus here.</p>
+    <div class="choice-grid">
+      <button type="button" class="choice choice-auto" data-field="top_goal" data-value="More leads"><i class="fa-light fa-magnet lead-ic"></i><span>More leads<small>Show up when people in my city search</small></span></button>
+      <button type="button" class="choice choice-auto" data-field="top_goal" data-value="Close more"><i class="fa-light fa-calendar-check lead-ic"></i><span>Close more jobs<small>Turn more visitors into bookings</small></span></button>
+      <button type="button" class="choice choice-auto" data-field="top_goal" data-value="Bigger tickets"><i class="fa-light fa-arrow-trend-up lead-ic"></i><span>Bigger tickets<small>Sell more packages and add-ons</small></span></button>
+      <button type="button" class="choice choice-auto" data-field="top_goal" data-value="More reviews"><i class="fa-light fa-star lead-ic"></i><span>More 5-star reviews<small>Build trust fast in a new market</small></span></button>
+    </div>
+  </section>
+
+  <!-- HAS WEBSITE PATH ----------------------------------------------------- -->
+  <section class="ob-step" data-step="website">
+    <h1>What's your website?</h1>
+    <p class="ob-help">We'll save you the headache and pull your services, prices and service area from it.</p>
+    <div class="field">
+      <label for="websiteInput">Website address</label>
+      <input id="websiteInput" name="website_url" class="form-control" inputmode="url" autocomplete="url" placeholder="yourdetailing.com" autocapitalize="off" spellcheck="false">
+    </div>
+    <div id="websiteNote" class="ob-note d-none"><i class="fa-solid fa-wand-magic-sparkles mt-1"></i><span></span></div>
+  </section>
+
+  <section class="ob-step" data-step="capacity">
+    <h1>How many jobs can you handle in a week?</h1>
+    <p class="ob-help">Across all your vans and techs.</p>
+    <div class="choice-grid two">
+      <button type="button" class="choice choice-auto choice-tall" data-field="weekly_capacity" data-value="Under 10"><span>Under 10<small>jobs a week</small></span></button>
+      <button type="button" class="choice choice-auto choice-tall" data-field="weekly_capacity" data-value="10-25"><span>10 to 25<small>jobs a week</small></span></button>
+      <button type="button" class="choice choice-auto choice-tall" data-field="weekly_capacity" data-value="25-50"><span>25 to 50<small>jobs a week</small></span></button>
+      <button type="button" class="choice choice-auto choice-tall" data-field="weekly_capacity" data-value="50+"><span>50 or more<small>jobs a week</small></span></button>
+    </div>
+  </section>
+
+  <section class="ob-step" data-step="revenue">
+    <h1>About how much do you book in a typical month?</h1>
+    <p class="ob-help">This tells us if you qualify for our money-back guarantee.</p>
+    <div class="choice-grid two">
+      <button type="button" class="choice choice-auto choice-tall" data-field="monthly_revenue" data-value="Under $5k" data-min="0"><span>Under $5,000</span></button>
+      <button type="button" class="choice choice-auto choice-tall" data-field="monthly_revenue" data-value="$5k-$15k" data-min="5000"><span>$5,000 to $15,000</span></button>
+      <button type="button" class="choice choice-auto choice-tall" data-field="monthly_revenue" data-value="$15k-$40k" data-min="15000"><span>$15,000 to $40,000</span></button>
+      <button type="button" class="choice choice-auto choice-tall" data-field="monthly_revenue" data-value="$40k+" data-min="40000"><span>$40,000 or more</span></button>
+    </div>
+  </section>
+
+  <section class="ob-step" data-step="booking_tool">
+    <h1>How do customers book you today?</h1>
+    <p class="ob-help">We'll move everything over and connect what you want to keep.</p>
+    <div class="choice-grid">
+      <button type="button" class="choice choice-auto" data-field="current_booking" data-value="Phone and text"><i class="fa-light fa-message-sms lead-ic"></i><span>Phone calls and texts</span></button>
+      <button type="button" class="choice choice-auto" data-field="current_booking" data-value="Website form"><i class="fa-light fa-input-text lead-ic"></i><span>A form on my website</span></button>
+      <button type="button" class="choice choice-auto" data-field="current_booking" data-value="Booking software"><i class="fa-light fa-calendar-lines-pen lead-ic"></i><span>Booking software<small>Urable, Square, Jobber or similar</small></span></button>
+      <button type="button" class="choice choice-auto" data-field="current_booking" data-value="A mix"><i class="fa-light fa-shuffle lead-ic"></i><span>A mix of these</span></button>
+    </div>
+  </section>
+
+  <!-- SATISFACTION: three one-tap questions, asked on both paths. Answers show where MasterMobile helps first. -->
+  <section class="ob-step" data-step="sat-marketing">
+    <h1>How pleased are you with your current <span class="key">marketing</span>?</h1>
+    <p class="ob-help">Google, ads, referrals, social. However customers find you today.</p>
+    <div class="choice-grid">
+      <button type="button" class="choice choice-auto" data-field="sat_marketing" data-value="Love it"><i class="fa-light fa-face-grin-hearts lead-ic"></i><span>Love it</span></button>
+      <button type="button" class="choice choice-auto" data-field="sat_marketing" data-value="It works"><i class="fa-light fa-face-smile lead-ic"></i><span>It works<small>But it could be better</small></span></button>
+      <button type="button" class="choice choice-auto" data-field="sat_marketing" data-value="It's a struggle"><i class="fa-light fa-face-frown lead-ic"></i><span>It's a struggle<small>It costs me time or jobs</small></span></button>
+      <button type="button" class="choice choice-auto" data-field="sat_marketing" data-value="Don't have one yet"><i class="fa-light fa-circle-dashed lead-ic"></i><span>Don't have one yet</span></button>
+    </div>
+  </section>
+
+  <section class="ob-step" data-step="sat-booking">
+    <h1>How pleased are you with your current <span class="key">booking</span> process?</h1>
+    <p class="ob-help">From the first message to a job on the calendar.</p>
+    <div class="choice-grid">
+      <button type="button" class="choice choice-auto" data-field="sat_booking" data-value="Love it"><i class="fa-light fa-face-grin-hearts lead-ic"></i><span>Love it</span></button>
+      <button type="button" class="choice choice-auto" data-field="sat_booking" data-value="It works"><i class="fa-light fa-face-smile lead-ic"></i><span>It works<small>But it could be better</small></span></button>
+      <button type="button" class="choice choice-auto" data-field="sat_booking" data-value="It's a struggle"><i class="fa-light fa-face-frown lead-ic"></i><span>It's a struggle<small>It costs me time or jobs</small></span></button>
+      <button type="button" class="choice choice-auto" data-field="sat_booking" data-value="Don't have one yet"><i class="fa-light fa-circle-dashed lead-ic"></i><span>Don't have one yet</span></button>
+    </div>
+  </section>
+
+  <section class="ob-step" data-step="sat-support">
+    <h1>How pleased are you with your current <span class="key">customer support</span>?</h1>
+    <p class="ob-help">Questions, reschedules, complaints and follow-ups.</p>
+    <div class="choice-grid">
+      <button type="button" class="choice choice-auto" data-field="sat_support" data-value="Love it"><i class="fa-light fa-face-grin-hearts lead-ic"></i><span>Love it</span></button>
+      <button type="button" class="choice choice-auto" data-field="sat_support" data-value="It works"><i class="fa-light fa-face-smile lead-ic"></i><span>It works<small>But it could be better</small></span></button>
+      <button type="button" class="choice choice-auto" data-field="sat_support" data-value="It's a struggle"><i class="fa-light fa-face-frown lead-ic"></i><span>It's a struggle<small>It costs me time or jobs</small></span></button>
+      <button type="button" class="choice choice-auto" data-field="sat_support" data-value="Don't have one yet"><i class="fa-light fa-circle-dashed lead-ic"></i><span>Don't have one yet</span></button>
+    </div>
+  </section>
+
+  <!-- CONTACT: saved to the inbox before any payment, so nobody who stops here is lost. -->
+  <section class="ob-step" data-step="contact">
+    <h1>Where should we send your plan?</h1>
+    <p class="ob-help">Last step before you see your plan and founding price.</p>
+    <div class="fields">
+    <div class="field"><label for="name">Your name</label><input id="name" name="name" class="form-control" autocomplete="name" required></div>
+    <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" class="form-control" autocomplete="email" required></div>
+    <div class="field"><label for="phone">Mobile phone</label><input id="phone" name="phone" type="tel" class="form-control" autocomplete="tel" inputmode="tel" placeholder="(813) 555-0142" required><p class="small muted">We'll only text you about your MasterMobile setup.</p></div>
+    </div>
+  </section>
+
+  <!-- OFFER: one price and a checklist of what's included. No promises tied to their specific answers. -->
+  <section class="ob-step" data-step="offer">
+    <h1 id="offerTitle">Your founding offer</h1>
+    <p class="ob-help">One price. Everything you need to take better bookings.</p>
+    <div class="summary-card">
+      <div class="price-row"><span class="price" style="font-size:2.5rem">$450</span><span class="was">$650</span><span class="pill pill-green ms-auto">Save $200</span></div>
+      <p class="small muted mt-2">Founding price. Ends when we launch.</p>
+      <div class="caps-label">What's included</div>
+      <ul class="check-list">
+        <li>A website built for mobile detailers</li>
+        <li>An optimized, mobile-first booking flow</li>
+        <li>Customizable products and add-ons</li>
+        <li>Local SEO pages for the areas you serve</li>
+        <li>Ad and referral tracking</li>
+        <li>Fraud, cancellation and chargeback protection</li>
+        <li>Automatic review requests</li>
+        <li>Integrations with QuickBooks, Urable and Google Sheets</li>
+      </ul>
+      <div class="guarantee"><i class="fa-solid fa-shield-check"></i><div id="guaranteeText"></div></div>
+    </div>
+    <p class="text-center"><a href="#" id="decideLater" class="small">Not ready today? We saved your info.</a></p>
+  </section>
+
+  <!-- EXTRAS: optional add-ons they can flag interest in. Sent with the lead; nothing extra is charged. -->
+  <section class="ob-step" data-step="extras">
+    <h1>Interested in more?</h1>
+    <p class="ob-help">Optional add-ons for when you're ready. Pick any you'd like to hear about. Nothing extra is charged today.</p>
+    <div class="choice-grid">
+      <button type="button" class="choice choice-multi" data-interest="Paid Ads Engine"><i class="fa-light fa-bullhorn lead-ic"></i><span>Paid Ads Engine<small>A fully managed program on Google, Microsoft and Meta that drives leads at a cost you can afford.</small></span><i class="fa-solid fa-circle-check tick"></i></button>
+      <button type="button" class="choice choice-multi" data-interest="Dispatch Engine"><i class="fa-light fa-route lead-ic"></i><span>Dispatch Engine<small>Matches bookings to your techs with drive-time optimized routes.</small></span><i class="fa-solid fa-circle-check tick"></i></button>
+      <button type="button" class="choice choice-multi" data-interest="CRM"><i class="fa-light fa-address-book lead-ic"></i><span>CRM<small>An alternative to tools like Urable. Every contact and customer relationship in one place.</small></span><i class="fa-solid fa-circle-check tick"></i></button>
+    </div>
+  </section>
+
+  <!-- DONE -->
+  <section class="ob-step text-center" data-step="done">
+    <div class="ic ic-green mx-auto" style="width:64px;height:64px;border-radius:50%;font-size:1.5rem"><i class="fa-solid fa-check"></i></div>
+    <h1 id="doneTitle">You're on the list.</h1>
+    <p class="ob-help" id="doneText">We saved your plan and will text you shortly to get your booking site started.</p>
+    <a href="index.html" class="btn btn-ghost">Back to MasterMobile</a>
+  </section>
+
+  <div id="formError" class="ob-error d-none" role="alert"></div>
+</form>
+
+<!-- Sticky action bar: thumb-reachable on phones. Single-choice steps advance on tap and don't need it. -->
+<div class="ob-actions" id="actions">
+  <div class="inner">
+    <button type="button" id="backBtn" class="btn btn-ghost" aria-label="Back"><i class="fa-light fa-arrow-left m-0"></i></button>
+    <button type="submit" form="onboarding" id="nextBtn" class="btn btn-mm"><span>Continue</span></button>
+  </div>
+</div>
+
+<script src="assets/start.js"></script>
+</body>
+</html>
