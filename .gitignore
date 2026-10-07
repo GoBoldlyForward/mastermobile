@@ -3,3 +3,6 @@ NOTES.md
 index-enhanced.html
 assets/enhanced.js
 .DS_Store
+style-*.html
+assets/theme-*.css
+assets/style-switcher.css
