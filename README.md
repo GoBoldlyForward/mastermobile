@@ -6,4 +6,5 @@ Landing page and early access onboarding for [mastermobile.com](https://mastermo
 
 - `index.html`: landing page
 - `start.html`: early access onboarding
+- `admin.html`: admin dashboard (booking funnel with time between stages, and the performance loop by source)
 - `assets/`: styles and scripts
