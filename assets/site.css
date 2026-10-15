@@ -243,7 +243,7 @@ a { color: var(--mm-primary); }
 /* Offer */
 .offer-card { color: var(--mm-body); border-radius: 28px; padding: var(--s-6); border: 2px solid transparent; background: linear-gradient(#fff, #fff) padding-box, var(--mm-gradient) border-box; box-shadow: 0 30px 60px -20px rgba(0, 0, 0, .5); }
 .offer-card > * + * { margin-top: var(--s-5); }
-.price-row { display: flex; align-items: baseline; gap: var(--s-3); }
+.price-row { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--s-3); }
 .price { font-family: var(--font-display); font-weight: 800; font-size: 3rem; color: var(--mm-ink); line-height: 1; }
 .was { text-decoration: line-through; color: var(--mm-muted); font-weight: 600; font-size: 1.125rem; }
 .guarantee { display: flex; gap: var(--s-4); background: var(--mm-green-soft); border-radius: 12px; padding: var(--s-4); color: #0d5c46; font-size: .9375rem; }
@@ -334,3 +334,36 @@ footer { border-top: 1px solid var(--mm-line); padding: var(--s-6) 0; font-size:
 /* .g-5 rows pull 24px outside a container that only pads 12px, causing sideways scroll on phones.
    Columns stack below lg, so only the horizontal gutter is narrowed; vertical spacing is unchanged. */
 @media (max-width: 991px) { .row.g-5 { --bs-gutter-x: 1.5rem; } }
+
+/* Data performance loop */
+.loop-figure { max-width: 600px; margin: 0 auto; }
+.loop-svg { width: 100%; height: auto; display: block; }
+.loop-svg .loop-node { filter: drop-shadow(0 12px 24px rgba(0, 0, 0, .4)); }
+.loop-svg .loop-title { font: 700 22px var(--font-display); letter-spacing: -0.02em; fill: #fff; }
+.loop-svg .loop-sub { font: 500 15px var(--font-body); fill: #c3cbd9; }
+.loop-svg .loop-n { font: 800 14px var(--font-display); }
+.loop-svg .loop-kicker { font: 700 12px var(--font-body); letter-spacing: .14em; fill: var(--mm-accent); }
+.loop-svg .loop-center { font: 800 32px var(--font-display); letter-spacing: -0.03em; fill: #fff; }
+@media (prefers-reduced-motion: reduce) { .loop-svg .loop-dot { display: none; } }
+/* The figure scales down to ~350px on phones, so its labels scale up to stay readable. */
+@media (max-width: 575px) { .loop-svg .loop-title { font-size: 26px; } .loop-svg .loop-sub { font-size: 18px; } .loop-svg .loop-center { font-size: 36px; } }
+
+/* Workshop offer card: a monthly price plus a deposit note */
+.price-row .per { color: var(--mm-muted); font-weight: 600; white-space: nowrap; }
+.offer-card .caps-label { color: var(--mm-muted); }
+.deposit { display: flex; gap: var(--s-4); background: var(--mm-primary-soft); border-radius: 12px; padding: var(--s-4); color: var(--mm-primary-dark); font-size: .9375rem; }
+.deposit i { font-size: 1.5rem; color: var(--mm-primary); }
+.deposit strong { color: var(--mm-ink); }
+
+/* Iceberg: the website is the visible tip */
+.iceberg-figure { max-width: 560px; margin: 0 auto; }
+.iceberg-svg { width: 100%; height: auto; display: block; }
+.iceberg-svg .ib-label { font: 700 20px var(--font-display); letter-spacing: -0.02em; fill: var(--mm-ink); }
+.iceberg-svg .ib-sub { font: 500 14px var(--font-body); fill: var(--mm-muted); }
+.iceberg-svg .ib-cap { font: 700 11px var(--font-body); letter-spacing: .12em; }
+.iceberg-svg .ib-tier { font: 600 22px var(--font-body); fill: var(--mm-ink); }
+.iceberg-svg .ib-base { font: 800 24px var(--font-display); letter-spacing: -0.02em; fill: var(--mm-ink); }
+@media (max-width: 575px) { .iceberg-svg .ib-label { font-size: 22px; } .iceberg-svg .ib-sub { font-size: 16px; } .iceberg-svg .ib-tier { font-size: 26px; } .iceberg-svg .ib-base { font-size: 28px; } }
+.objections { list-style: none; padding: 0; }
+.objections li { font-family: var(--font-display); font-weight: 600; color: var(--mm-ink); padding: var(--s-3) var(--s-4); border-left: 3px solid var(--mm-accent); background: var(--mm-canvas); border-radius: 0 12px 12px 0; }
+.objections li + li { margin-top: var(--s-2); }

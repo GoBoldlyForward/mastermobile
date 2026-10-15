@@ -191,10 +191,17 @@
     <h1 id="offerTitle">Your founding offer</h1>
     <p class="ob-help">One price. Everything you need to take better bookings.</p>
     <div class="summary-card">
-      <div class="price-row"><span class="price" style="font-size:2.5rem">$450</span><span class="was">$650</span><span class="pill pill-green ms-auto">Save $200</span></div>
-      <p class="small muted mt-2">Founding price. Ends when we launch.</p>
+      <div data-offer="founding">
+        <div class="price-row"><span class="price" style="font-size:2.5rem">$450</span><span class="was">$650</span><span class="pill pill-green ms-auto">Save $200</span></div>
+        <p class="small muted mt-2">Founding price. Ends when we launch.</p>
+      </div>
+      <div data-offer="workshop">
+        <div class="price-row"><span class="price" style="font-size:2.5rem">$1,500</span><span class="per">/ month</span><span class="pill pill-green ms-auto">Workshop rate</span></div>
+        <p class="small muted mt-2">Guaranteed for your first year. $1,000 deposit today; monthly billing starts when the app is launched and your company is onboarded.</p>
+      </div>
       <div class="caps-label">What's included</div>
       <ul class="check-list">
+        <li data-offer="workshop"><strong>Ad management</strong> on Google, Microsoft and Meta</li>
         <li>A website built for mobile detailers</li>
         <li>An optimized, mobile-first booking flow</li>
         <li>Customizable products and add-ons</li>
@@ -204,7 +211,7 @@
         <li>Automatic review requests</li>
         <li>Integrations with QuickBooks, Urable and Google Sheets</li>
       </ul>
-      <div class="guarantee"><i class="fa-solid fa-shield-check"></i><div id="guaranteeText"></div></div>
+      <div class="guarantee" data-offer="founding"><i class="fa-solid fa-shield-check"></i><div id="guaranteeText"></div></div>
     </div>
     <p class="text-center"><a href="#" id="decideLater" class="small">Not ready today? We saved your info.</a></p>
   </section>
@@ -214,7 +221,7 @@
     <h1>Interested in more?</h1>
     <p class="ob-help">Optional add-ons for when you're ready. Pick any you'd like to hear about. Nothing extra is charged today.</p>
     <div class="choice-grid">
-      <button type="button" class="choice choice-multi" data-interest="Paid Ads Engine"><i class="fa-light fa-bullhorn lead-ic"></i><span>Paid Ads Engine<small>A fully managed program on Google, Microsoft and Meta that drives leads at a cost you can afford.</small></span><i class="fa-solid fa-circle-check tick"></i></button>
+      <button type="button" class="choice choice-multi" data-interest="Paid Ads Engine" data-offer="founding"><i class="fa-light fa-bullhorn lead-ic"></i><span>Paid Ads Engine<small>A fully managed program on Google, Microsoft and Meta that drives leads at a cost you can afford.</small></span><i class="fa-solid fa-circle-check tick"></i></button>
       <button type="button" class="choice choice-multi" data-interest="Dispatch Engine"><i class="fa-light fa-route lead-ic"></i><span>Dispatch Engine<small>Matches bookings to your techs with drive-time optimized routes.</small></span><i class="fa-solid fa-circle-check tick"></i></button>
       <button type="button" class="choice choice-multi" data-interest="CRM"><i class="fa-light fa-address-book lead-ic"></i><span>CRM<small>An alternative to tools like Urable. Every contact and customer relationship in one place.</small></span><i class="fa-solid fa-circle-check tick"></i></button>
     </div>

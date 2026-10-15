@@ -2,6 +2,7 @@
 const CONFIG = {
   formEndpoint: "",          // e.g. https://formspree.io/f/xxxxxxx (receives the lead before payment)
   stripePaymentLink: "",     // e.g. https://buy.stripe.com/xxxxxxx ($450, success URL -> start.html?paid=1)
+  workshopPaymentLink: "",   // $1,000 deposit for workshop attendees, success URL -> start.html?paid=1&offer=workshop
   guaranteeMinMonthly: 5000, // monthly sales needed to qualify for the money-back guarantee
 };
 
@@ -30,11 +31,15 @@ const answers = {
   reference: "MM-" + Math.random().toString(36).slice(2, 8).toUpperCase(),
   stage: params.get("stage") || "", // set by the enhanced landing page's stage switcher
   entry_cta: params.get("from") || "", // which landing page button they used, e.g. "calculator"
+  offer: params.get("offer") === "workshop" ? "workshop" : "founding", // workshop.html links in with ?offer=workshop
 };
 let history = []; // step names visited, for the back button
 let current = "fork";
 
 // ---------- Setup ----------
+
+// Price, checklist and add-on choices differ per offer; each variant is tagged with data-offer.
+document.querySelectorAll("[data-offer]").forEach((el) => el.classList.toggle("d-none", el.dataset.offer !== answers.offer));
 
 const stateSelect = document.getElementById("stateSelect");
 STATES.forEach((s) => stateSelect.add(new Option(s, s)));
@@ -75,7 +80,7 @@ function show(step) {
 
   const label = nextBtn.querySelector("span");
   if (step === "contact") label.textContent = "See my plan";
-  else if (step === "offer") label.textContent = "Lock in $450 founding price";
+  else if (step === "offer") label.textContent = answers.offer === "workshop" ? "Reserve my spot with a $1,000 deposit" : "Lock in $450 founding price";
   else if (step === "extras") label.textContent = "Continue to secure checkout";
   else label.textContent = "Continue";
 
@@ -176,7 +181,8 @@ phoneInput.addEventListener("input", () => {
 
 function renderOffer() {
   const first = (answers.name || "").split(" ")[0];
-  document.getElementById("offerTitle").textContent = first ? `Your founding offer, ${first}` : "Your founding offer";
+  const title = answers.offer === "workshop" ? "Your workshop offer" : "Your founding offer";
+  document.getElementById("offerTitle").textContent = first ? `${title}, ${first}` : title;
 
   // The guarantee is conditional (Hormozi): show qualified detailers that they're covered.
   const qualifies = answers.has_website === "yes" && answers.monthly_revenue_min >= CONFIG.guaranteeMinMonthly;
@@ -286,14 +292,15 @@ form.addEventListener("submit", async (e) => {
   if (current === "extras") {
     busy(true, "Opening secure checkout");
     await send("checkout");
-    if (CONFIG.stripePaymentLink) {
-      const url = new URL(CONFIG.stripePaymentLink);
+    const link = answers.offer === "workshop" ? CONFIG.workshopPaymentLink : CONFIG.stripePaymentLink;
+    if (link) {
+      const url = new URL(link);
       url.searchParams.set("prefilled_email", answers.email);
       url.searchParams.set("client_reference_id", answers.reference);
       location.href = url.toString();
       return;
     }
-    location.href = "start.html?paid=1&demo=1"; // demo mode: skip Stripe
+    location.href = `start.html?paid=1&demo=1&offer=${answers.offer}`; // demo mode: skip Stripe
     return;
   }
 
@@ -316,8 +323,11 @@ document.querySelectorAll('[data-field="has_website"]').forEach((btn) => {
 // ---------- Entry ----------
 
 if (params.get("paid")) {
-  document.getElementById("doneTitle").textContent = "You're in. Your founding spot is locked.";
-  document.getElementById("doneText").textContent = "Check your email for your receipt. We'll text you within one business day to start building your booking site.";
+  const workshop = answers.offer === "workshop";
+  document.getElementById("doneTitle").textContent = workshop ? "You're in. Your workshop rate is locked." : "You're in. Your founding spot is locked.";
+  document.getElementById("doneText").textContent = workshop
+    ? "Check your email for your deposit receipt. We'll text you within one business day to start building your booking site. Monthly billing starts once you're launched and onboarded."
+    : "Check your email for your receipt. We'll text you within one business day to start building your booking site.";
   show("done");
 } else if (["yes", "no"].includes(params.get("website"))) {
   answers.has_website = params.get("website");
