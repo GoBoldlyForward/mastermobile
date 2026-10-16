@@ -6,10 +6,10 @@ window.MM_CONFIG = {
   formEndpoint: "https://formspree.io/f/mbgdqagy",
 
   // Stripe Payment Link for the $1,500 first-month deposit homepage visitors pay, e.g. "https://buy.stripe.com/xxxxxxxx".
-  standardPaymentLink: "https://buy.stripe.com/test_eVq4grePvgn58sS5HvcMM01",
+  standardPaymentLink: "https://buy.stripe.com/eVq4grePvgn58sS5HvcMM01",
 
   // Stripe Payment Link for the $1,000 workshop deposit.
-  workshopPaymentLink: "https://buy.stripe.com/test_4gMdR14aR7QzgZofi5cMM00",
+  workshopPaymentLink: "https://buy.stripe.com/4gMdR14aR7QzgZofi5cMM00",
 
   // Monthly sales needed to qualify for the money-back guarantee.
   guaranteeMinMonthly: 5000,
