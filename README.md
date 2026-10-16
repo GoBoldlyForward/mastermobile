@@ -2,7 +2,7 @@
 
 Better bookings for your auto detailing business.
 
-Landing page and early access onboarding for [mastermobile.com](https://mastermobile.com). Plain HTML, CSS and JavaScript with no build step, served by GitHub Pages.
+Landing page and early access onboarding for [mastermobilecleaning.com](https://www.mastermobilecleaning.com). Plain HTML, CSS and JavaScript with no build step, served by GitHub Pages.
 
 - `index.html`: landing page
 - `start.html`: early access onboarding
@@ -44,8 +44,8 @@ Create a Payment Link for each one-time product with these settings:
 
 - **Advanced options → Save payment details for future use: on.** This makes Checkout create a Stripe Customer, attach the card to it, and charge the deposit, so the card can be charged again later without the customer re-entering it. Without it Stripe records a guest payment and keeps no card.
 - **After the payment → Redirect customers to your website:**
-  - Workshop: `https://mastermobile.com/start.html?paid=1&offer=workshop&session_id={CHECKOUT_SESSION_ID}`
-  - Early access: `https://mastermobile.com/start.html?paid=1&session_id={CHECKOUT_SESSION_ID}`
+  - Workshop: `https://www.mastermobilecleaning.com/start.html?paid=1&offer=workshop&session_id={CHECKOUT_SESSION_ID}`
+  - Early access: `https://www.mastermobilecleaning.com/start.html?paid=1&session_id={CHECKOUT_SESSION_ID}`
 - Leave name, phone, address and custom fields off. The onboarding flow already collected them, and the page passes the email in as `prefilled_email`.
 - Turn on receipts for successful payments under Settings → Emails. The confirmation page tells them to check their email for a receipt.
 
