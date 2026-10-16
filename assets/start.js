@@ -74,7 +74,7 @@ function show(step) {
   document.getElementById("actions").classList.toggle("d-none", done || (autoStep && step !== "offer"));
 
   const label = nextBtn.querySelector("span");
-  if (step === "contact") label.textContent = "See my plan";
+  if (step === "contact") label.textContent = "Proceed";
   else if (step === "offer") label.textContent = answers.offer === "workshop" ? "Reserve my spot with a $1,000 deposit" : "Reserve my spot with my first month, $1,500";
   else if (step === "extras") label.textContent = "Continue to secure checkout";
   else label.textContent = "Continue";
