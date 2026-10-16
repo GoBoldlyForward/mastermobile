@@ -1,10 +1,5 @@
-// Fill these in to go live. Left blank, the flow runs in demo mode and submits nowhere.
-const CONFIG = {
-  formEndpoint: "",          // e.g. https://formspree.io/f/xxxxxxx (receives the lead before payment)
-  stripePaymentLink: "",     // e.g. https://buy.stripe.com/xxxxxxx ($450, success URL -> start.html?paid=1)
-  workshopPaymentLink: "",   // $1,000 deposit for workshop attendees, success URL -> start.html?paid=1&offer=workshop
-  guaranteeMinMonthly: 5000, // monthly sales needed to qualify for the money-back guarantee
-};
+// Go-live values are set in assets/config.js.
+const CONFIG = Object.assign({ formEndpoint: "", standardPaymentLink: "", workshopPaymentLink: "", guaranteeMinMonthly: 5000 }, window.MM_CONFIG);
 
 // Each path is an ordered list of step names matching <section data-step="...">.
 const PATHS = {
@@ -31,7 +26,7 @@ const answers = {
   reference: "MM-" + Math.random().toString(36).slice(2, 8).toUpperCase(),
   stage: params.get("stage") || "", // set by the enhanced landing page's stage switcher
   entry_cta: params.get("from") || "", // which landing page button they used, e.g. "calculator"
-  offer: params.get("offer") === "workshop" ? "workshop" : "founding", // workshop.html links in with ?offer=workshop
+  offer: params.get("offer") === "workshop" ? "workshop" : "standard", // workshop.html links in with ?offer=workshop
 };
 let history = []; // step names visited, for the back button
 let current = "fork";
@@ -80,7 +75,7 @@ function show(step) {
 
   const label = nextBtn.querySelector("span");
   if (step === "contact") label.textContent = "See my plan";
-  else if (step === "offer") label.textContent = answers.offer === "workshop" ? "Reserve my spot with a $1,000 deposit" : "Lock in $450 founding price";
+  else if (step === "offer") label.textContent = answers.offer === "workshop" ? "Reserve my spot with a $1,000 deposit" : "Reserve my spot with my first month, $1,500";
   else if (step === "extras") label.textContent = "Continue to secure checkout";
   else label.textContent = "Continue";
 
@@ -181,7 +176,7 @@ phoneInput.addEventListener("input", () => {
 
 function renderOffer() {
   const first = (answers.name || "").split(" ")[0];
-  const title = answers.offer === "workshop" ? "Your workshop offer" : "Your founding offer";
+  const title = answers.offer === "workshop" ? "Your workshop offer" : "Your early access offer";
   document.getElementById("offerTitle").textContent = first ? `${title}, ${first}` : title;
 
   // The guarantee is conditional (Hormozi): show qualified detailers that they're covered.
@@ -248,12 +243,12 @@ function calculatorFields() {
 function payload(intent) {
   return {
     ...answers,
-    intent, // "lead" when contact is saved, "checkout" when they continue to pay, "later" when they defer
+    intent, // "lead" when contact is saved, "checkout" when they continue to pay, "later" when they defer, "paid" after Stripe
     locations: answers.locations.map((l) => `${l.city}, ${l.state}`).join("; "),
     services: answers.services.join(", "),
     interests: answers.interests.join(", "),
     ...calculatorFields(),
-    attribution: window.mmAttribution || {},
+    ...(window.mmAttribution || {}), // utm_*, click ids, landing_page and referrer as their own columns
     submitted_at: new Date().toISOString(),
     _gotcha: form._gotcha.value,
   };
@@ -292,8 +287,9 @@ form.addEventListener("submit", async (e) => {
   if (current === "extras") {
     busy(true, "Opening secure checkout");
     await send("checkout");
-    const link = answers.offer === "workshop" ? CONFIG.workshopPaymentLink : CONFIG.stripePaymentLink;
+    const link = answers.offer === "workshop" ? CONFIG.workshopPaymentLink : CONFIG.standardPaymentLink;
     if (link) {
+      try { sessionStorage.setItem("mm_checkout", JSON.stringify(answers)); } catch (e) {}
       const url = new URL(link);
       url.searchParams.set("prefilled_email", answers.email);
       url.searchParams.set("client_reference_id", answers.reference);
@@ -320,14 +316,26 @@ document.querySelectorAll('[data-field="has_website"]').forEach((btn) => {
   btn.addEventListener("click", () => { answers.has_website = btn.dataset.value; });
 });
 
+// Stripe redirects here after payment. Reporting it against the same reference flips the lead to paid
+// without a webhook; the snapshot is cleared first so a refresh can't report twice.
+async function reportPaid() {
+  let saved = null;
+  try {
+    saved = JSON.parse(sessionStorage.getItem("mm_checkout") || "null");
+    sessionStorage.removeItem("mm_checkout");
+  } catch (e) {}
+  if (!saved) return;
+  Object.assign(answers, saved);
+  answers.stripe_session_id = params.get("session_id") || "";
+  await send("paid");
+}
+
 // ---------- Entry ----------
 
 if (params.get("paid")) {
-  const workshop = answers.offer === "workshop";
-  document.getElementById("doneTitle").textContent = workshop ? "You're in. Your workshop rate is locked." : "You're in. Your founding spot is locked.";
-  document.getElementById("doneText").textContent = workshop
-    ? "Check your email for your deposit receipt. We'll text you within one business day to start building your booking site. Monthly billing starts once you're launched and onboarded."
-    : "Check your email for your receipt. We'll text you within one business day to start building your booking site.";
+  if (!params.get("demo")) reportPaid();
+  document.getElementById("doneTitle").textContent = answers.offer === "workshop" ? "You're in. Your workshop rate is locked." : "You're in. Your spot is locked.";
+  document.getElementById("doneText").textContent = "Check your email for your receipt. We'll text you within one business day to start building your booking site. Monthly billing starts once you're launched and onboarded.";
   show("done");
 } else if (["yes", "no"].includes(params.get("website"))) {
   answers.has_website = params.get("website");
